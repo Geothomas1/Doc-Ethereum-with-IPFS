@@ -1,5 +1,3 @@
-const { assert } = require('chai');
-
 const ihash = artifacts.require("ihash");
 
 require('chai')
@@ -19,7 +17,6 @@ require('chai')
       {
           it('deployes successfully', async()=>{
 
-          iihash=await ihash.deployed()
           const address=iihash.address
           assert.notEqual(address,0X0)
           assert.notEqual(address,'')
@@ -30,8 +27,11 @@ require('chai')
       describe('storage', async()=>{
           it('update the hashvalue',async()=>
           {
-            //iihash=await ihash.deployed()
-            const 
+            let ihashset
+            ihashset='abc123'
+            await iihash.set(ihashset)
+            const result= await iihash.get()
+            assert.equal(result,ihashset)
           })
 
 
