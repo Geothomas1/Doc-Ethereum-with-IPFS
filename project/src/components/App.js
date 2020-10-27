@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Web3 from 'web3';
 import './App.css';
 import ihash from '../abis/ihash.json'
+import get from 'ipfs-http-client/src/get';
 
 
 
@@ -49,7 +50,8 @@ class App extends Component {
       const address=networkData.address
       const contract =web3.eth.Contract(abi,address)
       this.setState({contract})
-      
+      const ihashi=await contract.methods.get().call()
+      this.setState({ihashi})
 
     }else
     {
@@ -66,7 +68,7 @@ class App extends Component {
       account:'',
       buffer:null,
       contract:null,
-      ihash:'QmSqJFjJAXeCBbjBrJ44QUPtexpxP6rNkLKR66ArJPo4RE'
+      ihashi:'QmSqJFjJAXeCBbjBrJ44QUPtexpxP6rNkLKR66ArJPo4RE'
 
     };
   }
