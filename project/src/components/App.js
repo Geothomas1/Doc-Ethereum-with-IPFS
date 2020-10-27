@@ -12,6 +12,7 @@ class App extends Component {
 
   async componentWillMount() {
     await this.loadWeb3()
+    await this.loadBlockchainData()
   }
 
   async loadWeb3() {
@@ -27,11 +28,28 @@ class App extends Component {
     }
   }
   //Get the account
+  //Get the network
+  //Get smart contract
+  //Get Hash value of image
+  async loadBlockchainData()
+  {
+    const web3 = window.web3
+    // Load account
+    const accounts = await web3.eth.getAccounts()
+    this.setState({account:accounts[0]})
+
+    console.log(accounts)
+
+
+
+  }
+
 
 
   constructor(props) {    
     super(props);
     this.state = {
+      account:'',
       buffer:null,
       ihash:'QmSqJFjJAXeCBbjBrJ44QUPtexpxP6rNkLKR66ArJPo4RE'
 
@@ -68,6 +86,7 @@ class App extends Component {
         </nav>
         <div className="container-fluid mt-5">
           <div className="row">
+            <b>{this.state.account}</b>
             <main role="main" className="col-lg-12 d-flex text-center">
               <div className="content mr-auto ml-auto">
                   <img src={`https://ipfs.infura.io/ipfs/${this.state.ihash}`}/>
