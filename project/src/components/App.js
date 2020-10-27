@@ -47,6 +47,9 @@ class App extends Component {
       //fetch code
       const abi=ihash.abi
       const address=networkData.address
+      const contract =web3.eth.Contract(abi,address)
+      this.setState({contract})
+      
 
     }else
     {
@@ -62,6 +65,7 @@ class App extends Component {
     this.state = {
       account:'',
       buffer:null,
+      contract:null,
       ihash:'QmSqJFjJAXeCBbjBrJ44QUPtexpxP6rNkLKR66ArJPo4RE'
 
     };
