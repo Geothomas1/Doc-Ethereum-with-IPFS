@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
+import Web3 from 'web3';
+
+
 const ipfsClient = require('ipfs-http-client')
 const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: '5001', protocol: 'https' })
-
-
 
 class App extends Component {
 
@@ -14,6 +15,21 @@ class App extends Component {
       ihash:'QmSqJFjJAXeCBbjBrJ44QUPtexpxP6rNkLKR66ArJPo4RE'
 
     };
+  }
+  async loadWeb3()
+  {
+    if(window.ethereum){
+      window.web3= new Web3(window.ethereum)
+      await window.ethereum.enable()
+
+    }if (window.web3){
+      window.web3=new Web3(window.web3.currentProvider)
+      
+    }else {
+      window.alert('please use metamask')
+
+    }
+
   }
   captureFile=(event)=>
   {
