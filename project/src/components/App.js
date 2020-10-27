@@ -1,16 +1,33 @@
 import React, { Component } from 'react';
-import './App.css';
 import Web3 from 'web3';
+import './App.css';
+
 
 
 const ipfsClient = require('ipfs-http-client')
 const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: '5001', protocol: 'https' })
 
 class App extends Component {
-  async componentWillUnmount()
-  {
+ 
+
+  async componentWillMount() {
     await this.loadWeb3()
   }
+
+  async loadWeb3() {
+    if (window.ethereum) {
+      window.web3 = new Web3(window.ethereum)
+      await window.ethereum.enable()
+    }
+    else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider)
+    }
+    else {
+      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
+    }
+  }
+  //Get the account
+
 
   constructor(props) {    
     super(props);
@@ -20,21 +37,7 @@ class App extends Component {
 
     };
   }
-  async loadWeb3()
-  {
-    if(window.ethereum){
-      window.web3= new Web3(window.ethereum)
-      await window.ethereum.enable()
 
-    }if (window.web3){
-      window.web3=new Web3(window.web3.currentProvider)
-      
-    }else {
-      window.alert('please use metamask')
-
-    }
-
-  }
   captureFile=(event)=>
   {
     event.preventDefault()
