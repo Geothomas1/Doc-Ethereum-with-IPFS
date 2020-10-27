@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
 import './App.css';
+import ihash from '../abis/ihash.json'
 
 
 
@@ -30,6 +31,8 @@ class App extends Component {
   //Get the account
   //Get the network
   //Get smart contract
+  //-->ABI:hash.abi
+  //-->Address:networkData.address
   //Get Hash value of image
   async loadBlockchainData()
   {
@@ -37,10 +40,18 @@ class App extends Component {
     // Load account
     const accounts = await web3.eth.getAccounts()
     this.setState({account:accounts[0]})
+    const networkid= await web3.eth.net.getId()
+    const networkData= ihash.networks[networkid]
+    if(networkData)
+    {
+      //fetch code
+      const abi=ihash.abi
+      const address=networkData.address
 
-    console.log(accounts)
-
-
+    }else
+    {
+      window.alert("Smart contract not deployed to detect network")
+    }
 
   }
 
@@ -87,6 +98,7 @@ class App extends Component {
         <div className="container-fluid mt-5">
           <div className="row">
             <b>{this.state.account}</b>
+            
             <main role="main" className="col-lg-12 d-flex text-center">
               <div className="content mr-auto ml-auto">
                   <img src={`https://ipfs.infura.io/ipfs/${this.state.ihash}`}/>
